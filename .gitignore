@@ -17,6 +17,8 @@ DerivedData/
 Server/venv/
 Server/__pycache__/
 Server/*.pyc
+Server/**/*.pyc
+Server/**/__pycache__/
 Server/data/*
 !Server/data/songs.json
 !Server/data/tally_counter.json
