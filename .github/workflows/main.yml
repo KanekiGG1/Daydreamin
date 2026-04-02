@@ -1,0 +1,36 @@
+name: Build Unsigned IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build App
+        run: |
+          xcodebuild clean build \
+            -project Bitsongs.xcodeproj \
+            -scheme Bitsongs \
+            -configuration Release \
+            -sdk iphoneos \
+            SYMROOT=$(PWD)/build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          mv build/Release-iphoneos/Bitsongs.app Payload/
+          zip -r Daydreamin.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Daydreamin_IPA
+          path: Daydreamin.ipa
