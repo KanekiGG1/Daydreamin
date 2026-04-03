@@ -323,7 +323,7 @@ def render_play_response(request: Request, song_id: str, artist: str, title: str
         "quiet": True,
         "noplaylist": True,
         "extractor_args": {"youtube": {"client": ["android", "ios"]}},
-        "cookiefile" : "coolie.txt",
+        "cookiefile" : "cookie.txt",
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
