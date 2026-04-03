@@ -318,13 +318,11 @@ def render_play_response(request: Request, song_id: str, artist: str, title: str
         return JSONResponse({"source": "local", "url": f"{base_url}/api/mobile/stream_cache/{filename}"})
 
     query = f"{artist} - {title} audio"
-    ydl_opts = {
-        "format": "bestaudio[ext=m4a]/bestaudio/best",
-        "quiet": True,
-        "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["android", "ios"]}},
-        "cookiefile" : "www.youtube.com_cookies.txt",
-    }
+ydl_opts = {
+    "format": "bestaudio[ext=m4a]/bestaudio/best",
+    "quiet": True,
+    "noplaylist": True
+}
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
             info = ydl.extract_info(f"ytsearch1:{query}", download=False)
